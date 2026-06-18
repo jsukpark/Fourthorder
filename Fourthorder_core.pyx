@@ -740,7 +740,6 @@ cdef class Wedge:
                         d2_min1=np.inf
                         d2_min2=np.inf
                         d2_min3=np.inf
-                        d2_min=np.inf
                         for iaux in xrange(n2equi):
                             for ll in xrange(3):
                                 car2[ll]=(shift2all[0,iaux]*lattvec[ll,0]+
@@ -759,30 +758,24 @@ cdef class Wedge:
                                           shift4all[1,kaux]*lattvec[ll,1]+
                                           shift4all[2,kaux]*lattvec[ll,2]+
                                           coordall[ll,mm])
-                     #           d2_min1=min(d2_min1,
-                      #             (car3[0]-car2[0])**2+
-                       #            (car3[1]-car2[1])**2+
-                        #           (car3[2]-car2[2])**2)
-                                d2_min3=min(d2_min3,
-                                   (car4[0]-car3[0])**2+
-                                   (car4[1]-car3[1])**2+
-                                   (car4[2]-car3[2])**2)
-                            if d2_min3>frange2:
-                               continue
-                            d2_min2=min(d2_min2,
-                               (car4[0]-car2[0])**2+
-                               (car4[1]-car2[1])**2+
-                               (car4[2]-car2[2])**2)
-                            d2_min1=min(d2_min1,
-                               (car3[0]-car2[0])**2+
-                               (car3[1]-car2[1])**2+
-                               (car3[2]-car2[2])**2)
+                                    d2_min3=min(d2_min3,
+                                        (car4[0]-car3[0])**2+
+                                        (car4[1]-car3[1])**2+
+                                        (car4[2]-car3[2])**2)
+                                    d2_min2=min(d2_min2,
+                                        (car4[0]-car2[0])**2+
+                                        (car4[1]-car2[1])**2+
+                                        (car4[2]-car2[2])**2)
+                                d2_min1=min(d2_min1,
+                                    (car3[0]-car2[0])**2+
+                                    (car3[1]-car2[1])**2+
+                                    (car3[2]-car2[2])**2)
                         if d2_min1>=frange2:
-                           continue
+                            continue
                         if d2_min2>=frange2:
-                           continue
-                    #    if d2_min3>=frange2:
-                    #       continue
+                            continue
+                        if d2_min3>=frange2:
+                            continue
                     # This point is only reached if there is a choice of periodic images of
                     # ii, jj and kk such that all pairs ii-jj, ii-kk, ii-mm, and jj-kk, jj-mm,mm-kk are within
                     # the specified interaction range.
