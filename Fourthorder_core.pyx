@@ -18,6 +18,8 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import print_function
+
 import sys
 
 # This file contains Cython wrappers allowing the relevant functions
@@ -28,6 +30,7 @@ import sys
 
 from libc.stdlib cimport malloc,free
 from libc.math cimport floor,fabs
+from cpython.version cimport PY_MAJOR_VERSION
 
 import sys
 import copy
@@ -238,7 +241,10 @@ cdef class SymmetryOperations:
       self.__refresh_c_arrays()
       if data is NULL:
           raise MemoryError()
-      self.symbol=data.international_symbol.encode("ASCII").strip()
+      if PY_MAJOR_VERSION < 3:
+          self.symbol=data.international_symbol.encode("ASCII").strip()
+      else:
+          self.symbol=unicode(data.international_symbol).strip()
       self.__shift=np.empty((3,),dtype=np.double)
       self.__transform=np.empty((3,3),dtype=np.double)
       self.nsyms=data.n_operations
