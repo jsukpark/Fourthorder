@@ -432,7 +432,7 @@ def reconstruct_ifcs(phipart,wedge,list4,poscar,sposcar):
     nrows=ntotalindependent
     ncols=natoms*ntot*81
     if nrows*ncols<=MAXDENSE:
-        print "- Storing the coefficients in a dense matrix"
+        print("- Storing the coefficients in a dense matrix")
         aaa=np.zeros((nrows,ncols),dtype=np.double)
         vaa=aaa
         colindex=0
@@ -455,7 +455,7 @@ def reconstruct_ifcs(phipart,wedge,list4,poscar,sposcar):
                                 tribasisindex+=1
                                 colindex+=1
     else:
-        print "- Storing the coefficients in a sparse matrix"
+        print("- Storing the coefficients in a sparse matrix")
         i=[]
         j=[]
         v=[]
@@ -480,7 +480,7 @@ def reconstruct_ifcs(phipart,wedge,list4,poscar,sposcar):
                                                             vind2[ii,jj,kk,bb],ix])
                                 tribasisindex+=1
                                 colindex+=1
-        print "- \t Density: {0:.2g}%".format(100.*len(i)/float(nrows*ncols))
+        print("- \t Density: {0:.2g}%".format(100.*len(i)/float(nrows*ncols)))
         aaa=sp.sparse.coo_matrix((v,(i,j)),(nrows,ncols)).tocsr()
     D=sp.sparse.spdiags(aphilist,[0,],aphilist.size,aphilist.size,
                            format="csr")
